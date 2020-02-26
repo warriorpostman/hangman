@@ -28,6 +28,25 @@
                     (if (clojure.string/includes? past-guesses (str x)) x \_))
                     (seq goal-word))))
 
+(defn get-gallows
+  "Returns the gallows image based on a given number of wrong answers"
+  [wrong-count]
+  (println "   __")
+  (println "  |  |")
+  (if (< wrong-count 1)
+    (println "     |")
+    (println "  o  |"))
+  (if (< wrong-count 2)
+    (println "     |")
+    (println "  |  |"))
+  (if (< wrong-count 3)
+    (println "     |")
+    (println " /   |"))
+  (println "     |")
+  (println "  ___|__")
+  )
+
+
 (defn play-round 
   "Execute logic for each round of game play"
   [goal-word past-guesses]
@@ -44,7 +63,8 @@
         ((println "Duplicate guess")
          (play-round goal-word past-guesses))
         ((def new-guesses (save-guess guess past-guesses))
-         (println "HEY" (get-revealed goal-word new-guesses))
+         (get-gallows 0)
+         (println "" (get-revealed goal-word new-guesses))
          (play-round goal-word new-guesses)))))
   (println "HTE END"))
 
